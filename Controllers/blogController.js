@@ -48,6 +48,16 @@ exports.patchBlog = asyncCatch(async(req,res,next)=>{
   })
 })
 
+exports.deleteBlog = asyncCatch(async(req,res,next)=>{
+    const userId = req.user._id
+    const blogId = req.params.blogId
+    const blog = await Blog.findByIdAndDelete(blogId)
+    res.status(200).json({
+        success:"true",
+        data:blog
+    })
+})
+
 exports.addComments = asyncCatch(async(req,res,next)=>{
     const userId = req.user._id
     const blogId = req.params.blogId
