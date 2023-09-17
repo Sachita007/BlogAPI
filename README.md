@@ -1,6 +1,7 @@
 # Project: BlogApi
 BlogApi is a comprehensive backend system designed for bloggers and readers alike. It enables users to register, login, create, read, and manage blog posts. Additionally, there is a comment system allowing users to interact with the content. This API provides a solid foundation for any blogging platform.
 
+
 #### Quick Links:
 
 - [Running the Project Locally](#running-the-project-locally)
