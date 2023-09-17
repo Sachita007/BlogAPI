@@ -2,7 +2,7 @@ const User = require("./../Models/users");
 const JWT = require("jsonwebtoken");
 const asyncCatch = require("./../Utils/asyncCatch");
 const AppError = require("../Utils/AppError");
-
+const { promisify } = require("util");
 const signToken = (id)=>{
   return  JWT.sign({id:id},'iron_man', {expiresIn:'3d'})
 }
@@ -50,6 +50,15 @@ exports.protect = asyncCatch(async(req,res,next)=>{
     return next(new AppError('You are not logged in! Please log in to get access', 401))
   }
   const decode = await promisify(JWT.verify)(token,process.env.JWT_SECRET)
+  const user = await User.findById(decode.id)
+  if(!user){
+    return next(new AppError('The user blongs to this token no longer exists',401))
+  }
+    // GRANT ACCESS TO PROTECTED ROUTE
+  req.user = currentUser;
+  res.locals.user = currentUser;
+  
+  next()
   
 
 })
